@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    tools:context="browser.com.kudos.webviewexample.MainActivity">
+
+    <EditText
+        android:id="@+id/etInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="http://htmlbook.ru/html/b" />
+
+    <TextView
+        android:id="@+id/tvGo"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:text="go"
+        android:textSize="16sp"
+        android:padding="5dp"
+        android:layout_height="wrap_content" />
+
+    <ProgressBar
+        android:id="@+id/pbProcessing"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:background="@android:color/white"
+
+        android:layout_below="@id/etInput"
+
+        android:layout_height="2dp"
+        android:indeterminate="false"
+        android:max="100"
+        android:minHeight="2dp"
+        android:progress="0"
+        android:progressDrawable="@drawable/dr" />
+
+    <browser.com.kudos.webviewexample.BWebView
+        android:id="@+id/webView"
+        android:layout_below="@id/pbProcessing"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </browser.com.kudos.webviewexample.BWebView>
+
+</RelativeLayout>
