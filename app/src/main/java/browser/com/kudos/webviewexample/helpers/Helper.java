@@ -1,4 +1,4 @@
-package browser.com.kudos.webviewexample;
+package browser.com.kudos.webviewexample.helpers;
 
 import android.app.Activity;
 import android.content.Context;

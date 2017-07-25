@@ -1,4 +1,4 @@
-package browser.com.kudos.webviewexample;
+package browser.com.kudos.webviewexample.helpers;
 
 import com.github.rwitzel.streamflyer.core.AfterModification;
 import com.github.rwitzel.streamflyer.core.Modifier;

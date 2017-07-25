@@ -11,6 +11,13 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import browser.com.kudos.webviewexample.helpers.BrowserUnit;
+import browser.com.kudos.webviewexample.helpers.Helper;
+import browser.com.kudos.webviewexample.proxy.IPHelper;
+import browser.com.kudos.webviewexample.webview.BWebCrhomeClient;
+import browser.com.kudos.webviewexample.webview.BWebView;
+import browser.com.kudos.webviewexample.webview.BWebViewClient;
+
 public class MainActivity extends AppCompatActivity {
 
     BWebView webView;
@@ -28,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        IPHelper.startSocket();
 
         shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 

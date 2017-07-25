@@ -1,4 +1,4 @@
-package browser.com.kudos.webviewexample;
+package browser.com.kudos.webviewexample.webview;
 
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;

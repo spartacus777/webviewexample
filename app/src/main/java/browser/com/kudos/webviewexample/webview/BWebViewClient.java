@@ -1,4 +1,4 @@
-package browser.com.kudos.webviewexample;
+package browser.com.kudos.webviewexample.webview;
 
 import android.annotation.TargetApi;
 import android.graphics.Bitmap;
@@ -30,6 +30,8 @@ import java.util.regex.Pattern;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLSession;
+
+import browser.com.kudos.webviewexample.helpers.MyRegexModifier;
 
 import static android.content.ContentValues.TAG;
 

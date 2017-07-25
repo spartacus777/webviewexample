@@ -49,12 +49,12 @@
         android:progress="0"
         android:progressDrawable="@drawable/dr" />
 
-    <browser.com.kudos.webviewexample.BWebView
+    <browser.com.kudos.webviewexample.webview.BWebView
         android:id="@+id/webView"
         android:layout_below="@id/pbProcessing"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    </browser.com.kudos.webviewexample.BWebView>
+    </browser.com.kudos.webviewexample.webview.BWebView>
 
 </RelativeLayout>

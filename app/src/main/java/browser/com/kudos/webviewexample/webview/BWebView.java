@@ -1,10 +1,13 @@
-package browser.com.kudos.webviewexample;
+package browser.com.kudos.webviewexample.webview;
 
 import android.content.Context;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+
+import browser.com.kudos.webviewexample.helpers.BrowserUnit;
+import browser.com.kudos.webviewexample.proxy.IPHelper;
 
 public class BWebView extends WebView {
 
@@ -17,6 +20,7 @@ public class BWebView extends WebView {
 
     public BWebView(Context context) {
         super(context);
+        initWebView();
     }
 
     public void setCallback(OnWebViewCallback callback){
@@ -36,6 +40,8 @@ public class BWebView extends WebView {
     }
 
     private synchronized void initWebView() {
+
+        IPHelper.setProxy(this, IPHelper.getIP(), IPHelper.PORT);
 
         setAlwaysDrawnWithCacheEnabled(true);
         setAnimationCacheEnabled(true);
