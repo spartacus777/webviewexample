@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -55,10 +56,24 @@ public class MainActivity extends AppCompatActivity {
         tvGo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String url = BrowserUnit.queryWrapper(etInput.getText().toString());
-                webView.loadUrl(url);
+                doSearch();
             }
         });
+
+        etInput.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) || (actionId == EditorInfo.IME_ACTION_SEARCH)) {
+                    doSearch();
+                }
+                return false;
+            }
+        });
+    }
+
+    private void doSearch(){
+        Helper.hideKeyboard(this);
+        String url = BrowserUnit.queryWrapper(etInput.getText().toString());
+        webView.loadUrl(url);
     }
 
     public void updateProgress(int progress) {
@@ -83,12 +98,21 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (webView != null && webView.canGoBack()){
-            webView.goBack();
-        } else {
-            onBackPressed();
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_BACK:
+                if (webView != null && webView.canGoBack()) {
+                    webView.goBack();
+                } else {
+                    onBackPressed();
+                }
+
+                return true;
         }
 
-        return true;
+        return false;
     }
+
+
+
+
 }

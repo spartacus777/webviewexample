@@ -77,6 +77,10 @@ public class BWebView extends WebView {
         webSettings.setBuiltInZoomControls(true);
         webSettings.setDisplayZoomControls(false);
 
+        webSettings.setJavaScriptEnabled(true);
+        webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
+
+
         webSettings.setDefaultTextEncodingName(BrowserUnit.URL_ENCODING);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             webSettings.setLoadsImagesAutomatically(true);
@@ -84,12 +88,13 @@ public class BWebView extends WebView {
             webSettings.setLoadsImagesAutomatically(false);
         }
 
+        webSettings.setUserAgentString(BrowserUnit.MOBILE_USER_AGENT);
 
 
     }
 
     public void onPageLoaded(){
-
+//        loadUrl("javascript:replace('Star', 'fuck from parcer')");
     }
 
     public void update(int prog){

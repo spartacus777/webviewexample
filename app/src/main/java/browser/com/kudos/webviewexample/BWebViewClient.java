@@ -96,13 +96,15 @@ public class BWebViewClient extends WebViewClient {
     @Deprecated
     @Override
     public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
-        return handleInterceptRequest(view, url, null);
+//        return handleInterceptRequest(view, url, null);
+        return null;
     }
 
     @Override
     @RequiresApi(21)
     public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
-        return handleInterceptRequest(view, request.getUrl().toString(), request);
+//        return handleInterceptRequest(view, request.getUrl().toString(), request);
+        return null;
     }
 
     @TargetApi(21)
@@ -113,6 +115,9 @@ public class BWebViewClient extends WebViewClient {
         }
     }
 
+    /**
+     * Tried to override web resources here, but failied since auth got broken then
+     */
     private WebResourceResponse handleInterceptRequest(WebView view, String url, WebResourceRequest request){
         try {
 
