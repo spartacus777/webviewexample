@@ -7,7 +7,6 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import browser.com.kudos.webviewexample.helpers.BrowserUnit;
-import browser.com.kudos.webviewexample.proxy.IPHelper;
 
 public class BWebView extends WebView {
 
@@ -41,7 +40,7 @@ public class BWebView extends WebView {
 
     private synchronized void initWebView() {
 
-        IPHelper.setProxy(this, IPHelper.getIP(), IPHelper.PORT);
+//        IPHelper.setProxy(this, IPHelper.getIP(), IPHelper.PORT);
 
         setAlwaysDrawnWithCacheEnabled(true);
         setAnimationCacheEnabled(true);
