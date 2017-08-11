@@ -123,6 +123,17 @@ public class BWebViewClient extends WebViewClient {
         }
     }
 
+    private  Map<String, List<String>> headerToLowerCase( Map<String, List<String>>  m){
+        Map<String, List<String>> newMap = new HashMap<>();
+
+        for (String s : m.keySet()){
+            List<String> res = m.get(s);
+            newMap.put(s.toLowerCase(), res);
+        }
+
+        return newMap;
+    }
+
     /**
      * Tried to override web resources here, but failied since auth got broken then
      */
@@ -155,7 +166,8 @@ public class BWebViewClient extends WebViewClient {
 
             //get cookies
             Headers headers = response.headers();
-            List<String> str = headers.toMultimap().get("set-cookie");
+            List<String> str = headerToLowerCase(headers.toMultimap()).get("Set-Cookie");
+
             if (str != null && str.size() > 0) {
                 final CookieSyncManager cookieSyncManager = CookieSyncManager.createInstance(webView.getContext());
 
