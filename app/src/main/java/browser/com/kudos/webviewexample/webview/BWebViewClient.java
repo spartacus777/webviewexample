@@ -172,7 +172,12 @@ public class BWebViewClient extends WebViewClient {
                 final CookieSyncManager cookieSyncManager = CookieSyncManager.createInstance(webView.getContext());
 
                 for (String s : str) {
-                    CookieManager.getInstance().setCookie(getDomainName(url), s);
+
+//                    int domainIndex = s.indexOf("domain=");
+//                    int nextIndex = s.indexOf(';', domainIndex);
+//                    String path = s.substring(domainIndex + "domain=".length(), nextIndex-1);
+
+                    CookieManager.getInstance().setCookie("", s);
                 }
 
                 cookieSyncManager.sync();
