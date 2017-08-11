@@ -4,6 +4,8 @@ import android.annotation.TargetApi;
 import android.graphics.Bitmap;
 import android.support.annotation.RequiresApi;
 import android.util.Log;
+import android.webkit.CookieManager;
+import android.webkit.CookieSyncManager;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
@@ -11,6 +13,7 @@ import android.webkit.WebViewClient;
 
 import com.github.rwitzel.streamflyer.core.ModifyingReader;
 import com.squareup.okhttp.Call;
+import com.squareup.okhttp.Headers;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
@@ -23,7 +26,10 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
@@ -98,15 +104,15 @@ public class BWebViewClient extends WebViewClient {
     @Deprecated
     @Override
     public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
-//        return handleInterceptRequest(view, url, null);
-        return null;
+        return handleInterceptRequest(view, url, null);
+//        return null;
     }
 
     @Override
     @RequiresApi(21)
     public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
-//        return handleInterceptRequest(view, request.getUrl().toString(), request);
-        return null;
+        return handleInterceptRequest(view, request.getUrl().toString(), request);
+//        return null;
     }
 
     @TargetApi(21)
@@ -127,8 +133,15 @@ public class BWebViewClient extends WebViewClient {
                     .url(url)
                     .header("User-Agent", MOBILE_USER_AGENT);
 
+            String cookies = CookieManager.getInstance().getCookie(getDomainName(url));
+
             if (request != null){
                 inflateHeaders(builder, request);
+            }
+
+            //set cookies
+            if (cookies != null){
+                builder.addHeader("Cookie", cookies);
             }
 
             // On Android API >= 21 you can get request method and headers
@@ -139,6 +152,22 @@ public class BWebViewClient extends WebViewClient {
             final Response response = call.execute();
 
             ResponseBody body = response.body();
+
+            //get cookies
+            Headers headers = response.headers();
+            List<String> str = headers.toMultimap().get("set-cookie");
+            if (str != null && str.size() > 0) {
+                final CookieSyncManager cookieSyncManager = CookieSyncManager.createInstance(webView.getContext());
+
+                for (String s : str) {
+                    CookieManager.getInstance().setCookie(getDomainName(url), s);
+                }
+
+                cookieSyncManager.sync();
+            }
+
+
+
 
             MediaType contentType = body.contentType();
 
@@ -188,6 +217,22 @@ public class BWebViewClient extends WebViewClient {
         }
 
         return inputStream;
+    }
+
+
+
+    public static String getDomainName(String url) throws URISyntaxException {
+        URI uri = new URI(url);
+        String domain = uri.getHost();
+        if (isNullOrEmpty(domain) || domain.length() < 4){
+            return domain;
+        }
+
+        return domain.startsWith("www.") ? domain.substring(4) : domain;
+    }
+
+    public static boolean isNullOrEmpty(String s){
+        return !(s != null && s.length() > 0);
     }
 
 
