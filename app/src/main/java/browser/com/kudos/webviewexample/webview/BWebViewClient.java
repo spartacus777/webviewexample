@@ -173,11 +173,19 @@ public class BWebViewClient extends WebViewClient {
 
                 for (String s : str) {
 
-//                    int domainIndex = s.indexOf("domain=");
-//                    int nextIndex = s.indexOf(';', domainIndex);
-//                    String path = s.substring(domainIndex + "domain=".length(), nextIndex-1);
+                    String path;
+                    try {
+                        int domainIndex = s.indexOf("domain=");
+                        int nextIndex = s.indexOf(';', domainIndex);
+                        if (nextIndex == -1){
+                            nextIndex = s.length() + 1;
+                        }
+                        path = s.substring(domainIndex + "domain=".length(), nextIndex - 1);
+                    } catch (Throwable t){
+                        path = getDomainName(url);
+                    }
 
-                    CookieManager.getInstance().setCookie("", s);
+                    CookieManager.getInstance().setCookie(path, s);
                 }
 
                 cookieSyncManager.sync();
