@@ -166,7 +166,7 @@ public class BWebViewClient extends WebViewClient {
 
             //get cookies
             Headers headers = response.headers();
-            List<String> str = headerToLowerCase(headers.toMultimap()).get("Set-Cookie");
+            List<String> str = headerToLowerCase(headers.toMultimap()).get("set-cookie");
 
             if (str != null && str.size() > 0) {
                 final CookieSyncManager cookieSyncManager = CookieSyncManager.createInstance(webView.getContext());
