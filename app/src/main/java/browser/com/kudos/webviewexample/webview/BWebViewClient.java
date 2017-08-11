@@ -178,9 +178,9 @@ public class BWebViewClient extends WebViewClient {
                         int domainIndex = s.indexOf("domain=");
                         int nextIndex = s.indexOf(';', domainIndex);
                         if (nextIndex == -1){
-                            nextIndex = s.length() + 1;
+                            nextIndex = s.length();
                         }
-                        path = s.substring(domainIndex + "domain=".length(), nextIndex - 1);
+                        path = s.substring(domainIndex + "domain=".length(), nextIndex);
                     } catch (Throwable t){
                         path = getDomainName(url);
                     }
